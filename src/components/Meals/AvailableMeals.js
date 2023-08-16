@@ -29,7 +29,7 @@ const DUMMY_MEALS = [
   },
 ];
 
-function AvailableMeals() {
+const AvailableMeals = () => {
   const mealsList = DUMMY_MEALS.map((meal) => (
     <MealItem
       id={meal.id}
@@ -46,6 +46,6 @@ function AvailableMeals() {
       </Card>
     </section>
   );
-}
+};
 
 export default AvailableMeals;
