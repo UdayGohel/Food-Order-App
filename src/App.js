@@ -1,7 +1,8 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 import Modal from "./components/UI/Modal";
+import CartProvider from "./store/CartProvider";
 
 // const toggle = () =>
 
@@ -12,19 +13,15 @@ function App() {
     setShowModal(!showModal);
     // console.log("Open Via Header Car button");
   };
-  const toggle1 = () => {
-    setShowModal(!showModal);
-    // console.log("Open Via Modal");
-  };
 
   return (
-    <Fragment>
+    <CartProvider>
       <Header toggle={toggle} />
       <main>
-        <Modal toggle={toggle1} show={showModal} setShow={setShowModal} />
+        <Modal toggle={toggle} show={showModal} setShow={setShowModal} />
         <Meals />
       </main>
-    </Fragment>
+    </CartProvider>
   );
 }
 
