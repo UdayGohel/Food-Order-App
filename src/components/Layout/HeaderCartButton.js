@@ -28,6 +28,7 @@ const HeaderCartButton = (props) => {
       clearTimeout(timer);
     };
   }, [items]);
+  // This will return function to useEffect
 
   return (
     <button className={btnClasses} onClick={props.show}>
