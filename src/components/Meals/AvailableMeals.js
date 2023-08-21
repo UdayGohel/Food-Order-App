@@ -7,12 +7,16 @@ import Loader from "../UI/Loader";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
     const fetchMeals = async () => {
       const res = await fetch(
         "https://react-foodorder-5da2d-default-rtdb.firebaseio.com/meals.json"
       );
+      if (!res.ok) {
+        throw new Error("Something went wrong !");
+      }
       const resData = await res.json();
 
       const loadedMeals = [];
@@ -29,13 +33,25 @@ const AvailableMeals = () => {
       setMeals(loadedMeals);
       setIsLoading(false);
     };
-    fetchMeals();
+
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
   }, []);
 
   if (isLoading) {
     return (
       <section className={classes.MealsLoading}>
         <Loader />
+      </section>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className={classes.MealsError}>
+        <p>{httpError}</p>
       </section>
     );
   }
